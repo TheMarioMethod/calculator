@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cost Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h1>Cost Calculator</h1>
+    <div class="inputs">
+    <label for="hoursPerDay">Hours/day:</label>
+    <input type="number" id="hoursPerDay" oninput="calculateTotals()">
+    <br><br>
+    <label for="daysPerWeek">Days/week:</label>
+    <input type="number" id="daysPerWeek" oninput="calculateTotals()">
+    <br><br>
+    </div>
+    <div class="results">
+    <p>Total hours per year: <span id="totalHoursPerYear"></span> hours</p>
+    <p>Cost per year with petrol: <span id="costPerYearPetrol"></span></p>
+    <p>Cost per year with LPG: <span id="costPerYearLPG"></span></p>
+    <p>Savings per year: <span id="savingsPerYear"></span></p>
+    
+    <script>
+        // Declare variables outside the function
+        let formattedTotalHoursPerYear, formattedCostPerYearPetrol, formattedCostPerYearLPG, formattedSavingsPerYear;
+        
+        function calculateTotals() {
+        const hoursPerDay = parseFloat(document.getElementById("hoursPerDay").value);
+        const daysPerWeek = parseFloat(document.getElementById("daysPerWeek").value);
+        
+        const totalHoursPerYear = (hoursPerDay * daysPerWeek * 52.17857143).toFixed(2);
+        const costPerYearPetrol = (totalHoursPerYear * 18.144).toFixed(2);
+        const costPerYearLPG = (totalHoursPerYear * 12.89).toFixed(2);
+        const savingsPerYear = (costPerYearPetrol - costPerYearLPG).toFixed(2);
+        
+        // Format numbers with commas using toLocaleString
+        formattedTotalHoursPerYear = totalHoursPerYear.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        formattedCostPerYearPetrol = Number(costPerYearPetrol).toLocaleString('en-US', { style: 'currency', currency: 'BWP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        formattedCostPerYearLPG = Number(costPerYearLPG).toLocaleString('en-US', { style: 'currency', currency: 'BWP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        formattedSavingsPerYear = Number(savingsPerYear).toLocaleString('en-US', { style: 'currency', currency: 'BWP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        
+        // Update the display elements with the formatted values
+        document.getElementById("totalHoursPerYear").textContent = formattedTotalHoursPerYear + " hours";
+        document.getElementById("costPerYearPetrol").textContent = formattedCostPerYearPetrol;
+        document.getElementById("costPerYearLPG").textContent = formattedCostPerYearLPG;
+        document.getElementById("savingsPerYear").textContent = formattedSavingsPerYear;
+        }
+
+    </script>
+
+    </div>
+    
+    <a href="priceList2023.pdf" target="_blank"><input type="download" name="" id="" value="Download our product range" style="text-align:center;"/></a>
+    
+</body>
+
+</html>
